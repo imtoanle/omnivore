@@ -1,11 +1,15 @@
 name: Build Docker Images
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths-ignore:
       - 'apple/**'
       - 'android/**'
+
+permissions:
+  packages: write
 
 jobs:
   build-docker-images:
@@ -24,9 +28,13 @@ jobs:
           password: ${{secrets.GITHUB_TOKEN}}
       - name: Build the backend docker image
         run: |
-          docker build . --file packages/api/Dockerfile --tag "ghcr.io/omnivore-app/backend:${GITHUB_SHA}" --tag ghcr.io/omnivore-app/backend:latest
-          docker push ghcr.io/omnivore-app/backend:${GITHUB_SHA}
+          docker build . --file packages/api/Dockerfile --tag "ghcr.io/imtoanle/omnivore-backend:${GITHUB_SHA}" --tag ghcr.io/imtoanle/omnivore-backend:latest
+          docker push ghcr.io/imtoanle/omnivore-backend:${GITHUB_SHA}
+      - name: Build the db migrate docker image
+        run: |
+          docker build . --file packages/db/Dockerfile --tag "ghcr.io/imtoanle/omnivore-db:${GITHUB_SHA}" --tag ghcr.io/imtoanle/omnivore-db:latest
+          docker push ghcr.io/imtoanle/omnivore-db:${GITHUB_SHA}
       - name: Build the content-fetch docker image
         run: |
-          docker build --file packages/content-fetch/Dockerfile . --tag "ghcr.io/omnivore-app/content-fetch:${GITHUB_SHA}" --tag ghcr.io/omnivore-app/content-fetch:latest
-          docker push ghcr.io/omnivore-app/content-fetch:${GITHUB_SHA}
+          docker build --file packages/content-fetch/Dockerfile . --tag "ghcr.io/imtoanle/omnivore-content-fetch:${GITHUB_SHA}" --tag ghcr.io/imtoanle/omnivore-content-fetch:latest
+          docker push ghcr.io/imtoanle/omnivore-content-fetch:${GITHUB_SHA}
