@@ -67,9 +67,9 @@ jobs:
           yarn install --frozen-lockfile
       - name: Database Migration
         run: |
-          psql -h localhost -p ${{ job.services.postgres.ports[5432] }} -U postgres -c "CREATE USER app_user WITH ENCRYPTED PASSWORD 'app_pass';"
+          psql -h localhost -p ${{ job.services.postgres.ports[5432] }} -U postgres -c "CREATE USER omnivore_app_user WITH ENCRYPTED PASSWORD 'app_pass';"
           yarn workspace @omnivore/db migrate
-          psql -h localhost -p ${{ job.services.postgres.ports[5432] }} -U postgres -c "GRANT omnivore_user to app_user;"
+          psql -h localhost -p ${{ job.services.postgres.ports[5432] }} -U postgres -c "GRANT omnivore_user to omnivore_app_user;"
         env:
           PG_HOST: localhost
           PG_PORT: ${{ job.services.postgres.ports[5432] }}
@@ -91,7 +91,7 @@ jobs:
         env:
           PG_HOST: localhost
           PG_PORT: ${{ job.services.postgres.ports[5432] }}
-          PG_USER: app_user
+          PG_USER: omnivore_app_user
           PG_PASSWORD: app_pass
           PG_DB: omnivore_test
           PG_LOGGER: debug

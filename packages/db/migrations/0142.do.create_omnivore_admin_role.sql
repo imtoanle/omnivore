@@ -6,7 +6,7 @@ BEGIN;
 
 CREATE ROLE omnivore_admin;
 
-GRANT omnivore_admin TO app_user;
+GRANT omnivore_admin TO omnivore_app_user;
 
 GRANT ALL PRIVILEGES ON SCHEMA omnivore TO omnivore_admin;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA omnivore TO omnivore_admin;

@@ -1,6 +1,6 @@
 -- Type: UNDO
 -- Name: alter_omnivore_admin_role
--- Description: Alter omnivore_admin role to prevent omnivore_admin to be inherited by app_user or omnivore_user
+-- Description: Alter omnivore_admin role to prevent omnivore_admin to be inherited by omnivore_app_user or omnivore_user
 
 BEGIN;
 
@@ -18,7 +18,7 @@ ALTER ROLE omnivore_user INHERIT;
 
 CREATE ROLE omnivore_admin;
 
-GRANT omnivore_admin TO app_user;
+GRANT omnivore_admin TO omnivore_app_user;
 
 GRANT ALL PRIVILEGES ON SCHEMA omnivore TO omnivore_admin;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA omnivore TO omnivore_admin;

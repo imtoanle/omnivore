@@ -87,7 +87,7 @@ services:
     environment:
       - API_ENV=local
       - PG_HOST=postgres
-      - PG_USER=app_user
+      - PG_USER=omnivore_app_user
       - PG_PASSWORD=app_pass
       - PG_DB=omnivore
       - PG_PORT=5432

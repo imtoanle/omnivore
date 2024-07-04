@@ -35,9 +35,9 @@ In order to use Row Level Security every transaction with the database must set 
 
 `postgres` - administrator of the database, used for migrations.
 
-`app_user` - a user that the app uses to login to database.
+`omnivore_app_user` - a user that the app uses to login to database.
    
-:exclamation: Do not issue any extra grants to `app_user` other than that are needed to assume a certain internal role, i.e. `GRANT omnivore_user TO app_user`
+:exclamation: Do not issue any extra grants to `omnivore_app_user` other than that are needed to assume a certain internal role, i.e. `GRANT omnivore_user TO omnivore_app_user`
 
 ## Installing and Using locally
 
@@ -68,22 +68,22 @@ needing to be logged in locally as `postgres`. For simplicity, set the method to
 ## Accessing the database locally
 
 Instead of using the superuser to access, create a user with the `omnivore_user` role. You can choose your local
-username instead of `app_user` here to avoid needing the `-U app_user` flag in the `psql` command below.
+username instead of `omnivore_app_user` here to avoid needing the `-U omnivore_app_user` flag in the `psql` command below.
 
-- Create a user named `app_user` in Postgres
-- Allow `app_user` to assume the roles necessary for the application. **Do not manually grant any other role to
-`app_user`**
+- Create a user named `omnivore_app_user` in Postgres
+- Allow `omnivore_app_user` to assume the roles necessary for the application. **Do not manually grant any other role to
+`omnivore_app_user`**
 
 `$ psql -U postgres`
 ```sql
-# CREATE USER app_user WITH ENCRYPTED PASSWORD 'app_pass';
-# GRANT omnivore_user to app_user;
+# CREATE USER omnivore_app_user WITH ENCRYPTED PASSWORD 'app_pass';
+# GRANT omnivore_user to omnivore_app_user;
 ```
 
-- Update the `PG_USER` and `PG_PASSWORD` values in `.env` files (packages/db, pkg/api) to `app_user` and `app_pass`,
+- Update the `PG_USER` and `PG_PASSWORD` values in `.env` files (packages/db, pkg/api) to `omnivore_app_user` and `app_pass`,
 respectively
 
-- You can now use psql to login to your database: `psql -U app_user -d omnivore`
+- You can now use psql to login to your database: `psql -U omnivore_app_user -d omnivore`
 
 ## Gotchas
 Postgres Row-Level Security can at times catch us off guard: there are policies limiting select/update operations on

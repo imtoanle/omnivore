@@ -1,6 +1,6 @@
 -- Type: DO
 -- Name: alter_omnivore_admin_role
--- Description: Alter omnivore_admin role to prevent omnivore_admin to be inherited by app_user or omnivore_user
+-- Description: Alter omnivore_admin role to prevent omnivore_admin to be inherited by omnivore_app_user or omnivore_user
 
 BEGIN;
 
@@ -18,7 +18,7 @@ GRANT USAGE ON SCHEMA omnivore TO omnivore_admin;
 
 ALTER ROLE omnivore_user NOINHERIT; -- This is to prevent omnivore_user from inheriting omnivore_admin role
 
-GRANT omnivore_admin TO omnivore_user; -- This is to allow app_user to set omnivore_admin role
+GRANT omnivore_admin TO omnivore_user; -- This is to allow omnivore_app_user to set omnivore_admin role
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON omnivore.user TO omnivore_admin;
 CREATE POLICY user_admin_policy on omnivore.user

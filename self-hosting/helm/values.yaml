@@ -14,7 +14,7 @@ controllers:
         env:
           API_ENV: local
           PG_HOST: postgres.postgres.svc.cluster.local
-          PG_USER: app_user
+          PG_USER: omnivore_app_user
           PG_DB: omnivore
           PG_PORT: 5432
           PG_POOL_MAX: 20
@@ -42,7 +42,7 @@ controllers:
         args: ["./packages/db/setup.sh"]
         env:
           PG_HOST: postgres.postgres.svc.cluster.local
-          PG_USER: app_user
+          PG_USER: omnivore_app_user
           PG_DB: omnivore
           NO_DEMO_USER: 1
         envFrom:
